@@ -11,6 +11,7 @@ An Alpine-based Docker image for downloading a file and executing it with the `m
 - `DB_USER` – Required. The username to use to connect.
 - `DB_PASS` – Required. The password to use to connect.
 - `MYSQL_NET_BUFFER_LENGTH` – Optional. The `net_buffer_length` setting for `mysqldump` (Default: "16384").
+- `COMPLETED_WEBHOOK` – Optional. A URL to receive a POST request containing JSON content once ingestion completes.
 
 ## Technical Details
 

@@ -22,3 +22,9 @@ else
   mysql -h "$DB_HOST" -u "$DB_USER" --password="$DB_PASS" -P "$DB_PORT" --comments --net-buffer-length="$MYSQL_NET_BUFFER_LENGTH" "$DB_NAME" < "$destination"
 fi
 echo "Import from $destination completed"
+
+if [ -n "$COMPLETED_WEBHOOK" ]; then
+  echo "About to make a POST request to $COMPLETED_WEBHOOK"
+  webhook_payload=$(jq -cn --arg host "$DB_HOST" --arg status complete '{"host":$host,"status":$status}')
+  curl -v -H "Content-Type: application/json" --data "$webhook_payload" -X POST "$COMPLETED_WEBHOOK"
+fi

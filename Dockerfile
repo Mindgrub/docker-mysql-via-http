@@ -1,6 +1,6 @@
 FROM alpine:3.15
 
-RUN apk add --no-cache mysql-client curl file
+RUN apk add --no-cache mysql-client curl file jq
 
 ADD run.sh /run.sh
 
