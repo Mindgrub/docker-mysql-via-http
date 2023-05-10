@@ -26,5 +26,5 @@ echo "Import from $destination completed"
 if [ -n "$COMPLETED_WEBHOOK" ]; then
   echo "About to make a POST request to $COMPLETED_WEBHOOK"
   webhook_payload=$(jq -cn --arg host "$DB_HOST" --arg status complete '{"host":$host,"status":$status}')
-  curl -v -H "Content-Type: application/json" --data "$webhook_payload" -X POST "$COMPLETED_WEBHOOK"
+  curl -L -v -H "Content-Type: application/json" --data "$webhook_payload" -X POST "$COMPLETED_WEBHOOK"
 fi
