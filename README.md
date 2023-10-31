@@ -12,6 +12,7 @@ An Alpine-based Docker image for downloading a file and executing it with the `m
 - `DB_PASS` – Required. The password to use to connect.
 - `MYSQL_NET_BUFFER_LENGTH` – Optional. The `net_buffer_length` setting for `mysqldump` (Default: "16384").
 - `COMPLETED_WEBHOOK` – Optional. A URL to receive a POST request containing JSON content once ingestion completes.
+- `SFN_TASK_TOKEN` – Optional. A Step Functions [Task Token](https://docs.aws.amazon.com/step-functions/latest/apireference/API_GetActivityTask.html#StepFunctions-GetActivityTask-response-taskToken). If present, this token will be used to call [`SendTaskHeartbeat`](https://docs.aws.amazon.com/step-functions/latest/apireference/API_SendTaskHeartbeat.html) and [`SendTaskSuccess`](https://docs.aws.amazon.com/step-functions/latest/apireference/API_SendTaskSuccess.html). The task output sent to `SendTaskSuccess` will consist of a JSON object with a single property: `uri` (containing the S3 URI of the database dump).
 
 ## Technical Details
 
