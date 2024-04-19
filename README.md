@@ -2,6 +2,8 @@
 
 An Alpine-based Docker image for downloading a file and executing it with the `mysql` client.
 
+There are tags for Alpine 3.19, 3.18, and 3.17. Both `linux/amd64` and `linux/arm64`.
+
 ## Environment Variables
 
 - `SQL_FILE_URL` – Required. The URL of the `.sql` or `.sql.gz` to ingest.
