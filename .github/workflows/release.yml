@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  REGISTRY_IMAGE: mindgrub/mysqldump-to-s3
+  REGISTRY_IMAGE: mindgrub/mysql-via-http
   IMAGE_VERSION: "1"
 
 jobs:
