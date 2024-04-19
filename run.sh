@@ -7,7 +7,6 @@ if [ -n "$SFN_TASK_TOKEN" ]; then
 fi
 
 # Variable defaults
-: "${MYSQL_NET_BUFFER_LENGTH:=16384}"
 : "${DB_PORT:=3306}"
 
 # Download the file
@@ -25,11 +24,20 @@ mime_type=$(file -b --mime-type "$destination")
 echo "Detected MIME type of $destination: $mime_type"
 
 # Run the file
+set -- -h "$DB_HOST" -u "$DB_USER" --password="$DB_PASS" -P "$DB_PORT" --comments
+if [ -n "$MYSQL_NET_BUFFER_LENGTH" ]; then
+  set -- "$@" --net-buffer-length="$MYSQL_NET_BUFFER_LENGTH"
+fi
+if [ -n "$MYSQL_OPTS" ]; then
+  set -- "$@" $MYSQL_OPTS
+fi
+set -- "$@" "$DB_NAME"
+mysql_opts=$(printf ' %s' "$@")
 echo "About to import $destination to mysql://$DB_HOST:$DB_PORT/$DB_NAME"
 if [ "$mime_type" = "application/gzip" ]; then
-  zcat "$destination" | mysql -h "$DB_HOST" -u "$DB_USER" --password="$DB_PASS" -P "$DB_PORT" --comments --net-buffer-length="$MYSQL_NET_BUFFER_LENGTH" "$DB_NAME"
+  zcat "$destination" | eval "mysql $mysql_opts"
 else
-  mysql -h "$DB_HOST" -u "$DB_USER" --password="$DB_PASS" -P "$DB_PORT" --comments --net-buffer-length="$MYSQL_NET_BUFFER_LENGTH" "$DB_NAME" < "$destination"
+  eval "mysql $mysql_opts" < "$destination"
 fi
 echo "Import from $destination completed"
 

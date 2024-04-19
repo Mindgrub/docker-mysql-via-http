@@ -1,7 +1,7 @@
-FROM alpine:3.18
+ARG ALPINE_VERSION=3.19
+FROM alpine:${ALPINE_VERSION}
 
-RUN apk add --no-cache mysql-client curl file jq python3 py3-pip \
-    && pip install awscli
+RUN apk add --no-cache mysql-client curl file jq python3 py3-pip aws-cli
 
 ADD run.sh /run.sh
 
