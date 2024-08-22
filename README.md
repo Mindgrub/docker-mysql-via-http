@@ -2,7 +2,18 @@
 
 An Alpine-based Docker image for downloading a file and executing it with the `mysql` client.
 
-There are tags for Alpine 3.19, 3.18, and 3.17. Both `linux/amd64` and `linux/arm64`.
+There are tags for Alpine 3.20, 3.19, 3.18, and 3.17. This image is available on both the `linux/amd64` and `linux/arm64` platforms.
+
+```bash
+# The "latest" tag will always point to the most recent version of Alpine.
+# Assuming 3.20.2 is most recent, these three commands all pull the same image.
+docker pull @mindgrub/mysql-via-http:latest
+docker pull @mindgrub/mysql-via-http:1-alpine-3.20
+docker pull @mindgrub/mysql-via-http:1-alpine-3.20.2
+
+# Pull other versions or architectures.
+docker pull --platform linux/arm64 @mindgrub/mysql-via-http:1-alpine-3.18
+```
 
 ## Environment Variables
 
